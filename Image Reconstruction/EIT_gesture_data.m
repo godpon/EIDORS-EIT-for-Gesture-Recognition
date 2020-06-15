@@ -1,7 +1,7 @@
 
 
 %% EIT Image reconstruction:
-% Uncomment the following line if EIDORS setup is not initiated previously
+% Uncomment the following line and run the EIDORS setup if not initiated previously
 % run C:\Users\godpo\Downloads\Software\eidors-v3.10\eidors\startup.m
 % run C:\Users\e0408045\Downloads\Software\eidors-v3.10\eidors\startup.m
 
