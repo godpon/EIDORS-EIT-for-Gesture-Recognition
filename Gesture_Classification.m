@@ -35,7 +35,7 @@ init_shift = 15;
 h_min = min(h);
 
 % Percentage of data to test the models
-test_percentage = 20;
+test_percentage = 23.2; % for 100 test samples, set test_percentage = 23.2 
 test_bin_size = round(h_min * test_percentage / 100);
 
 % test_bin_start = 274;
