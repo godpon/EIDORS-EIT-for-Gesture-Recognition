@@ -5,25 +5,26 @@
 % run C:\Users\godpo\Downloads\Software\eidors-v3.10\eidors\startup.m
 % run C:\Users\e0408045\Downloads\Software\eidors-v3.10\eidors\startup.m
 
-image_index = 0:20:h_min;
+image_index = 0:5:h_min;
 image_index(1) = 1;
-span = 50;
+span = 500;
 
 n_rings = 12;
 n_electrodes = 8;
+elec_pairs = 2:65;
 three_d_layers = []; % no 3D
 fmdl = mk_circ_tank( n_rings , three_d_layers, n_electrodes);
 % then assign the fields in fmdl to imdl.fwd_model
 options = {'no_meas_current','no_rotate_meas'};
 [stim, meas_select] = mk_stim_patterns(8,1,'{ad}','{ad}',options,1);
-imdl= mk_common_model('d2c5',n_electrodes);
+imdl= mk_common_model('b2c2',n_electrodes);
 imdl.fwd_model.stimulation = stim;
 imdl.fwd_model.meas_select = meas_select;
-data_objs = zeros(length(image_index),64,5);
-data_homg = zeros(64,5);
+data_objs = zeros(length(image_index),length(elec_pairs),5);
+data_homg = ones(length(elec_pairs),5);
 
 for i = 1:5
-    data_homg(:,i) = mean(Tables{i}{1:400,2:65});
+    data_homg(:,i) = mean(Tables{i}{1:311,elec_pairs});
     for j = 1:length(image_index)
         start_index = round(image_index(j) - span/2);
         stop_index = round(image_index(j) + span/2);
@@ -35,7 +36,7 @@ for i = 1:5
         end
         
         local_index =  start_index : stop_index;
-        data_objs(j,:,i) = mean(Tables{i}{local_index,2:65});
+        data_objs(j,:,i) = mean(Tables{i}{local_index,elec_pairs});
         %     data_homg(:,i) = mean(data_objs(:,:,i));
         img(i,j) = inv_solve(imdl, data_homg(:,i), data_objs(j,:,i)');
     end
@@ -60,7 +61,7 @@ for j = 1:length(image_index)
     timedisplay = Tables{i}.Time(image_index(j)) + "s";
     text(120,203,"Time:",...
         'HorizontalAlignment','center','FontSize',14);
-    text(120,210,string(timedisplay),...
+    text(120,215,string(timedisplay),...
         'HorizontalAlignment','center','FontSize',14);
     pause(0.000005);
 end

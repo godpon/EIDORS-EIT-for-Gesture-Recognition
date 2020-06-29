@@ -35,7 +35,7 @@ init_shift = 15;
 h_min = min(h);
 
 % Percentage of data to test the models
-test_percentage = 23.2; % for 100 test samples, set test_percentage = 23.2 
+test_percentage = 20; % for 100 test samples, set test_percentage = 23.2 
 test_bin_size = round(h_min * test_percentage / 100);
 
 % test_bin_start = 274;
@@ -43,6 +43,7 @@ test_bin_size = round(h_min * test_percentage / 100);
 % test_index = test_bin_start + [1:test_bin_size];
 % train_index = [(init_shift+1):(test_index(1)-1) (test_index(end)+1):(h_min-init_shift)];
 test_index = randperm(h_min,test_bin_size);
+test_index = sort(test_index);
 train_index = 1:h_min;
 train_index = setdiff(train_index, test_index);
 

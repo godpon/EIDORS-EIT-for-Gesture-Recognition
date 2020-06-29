@@ -54,18 +54,21 @@ for k = 1:7
 
     h1 = subplot(3,9,[3*k - 2, 3*k - 1]);
     h1_pos = get(h1,'Position'); %get the position data for sublot1.
-    image(temp1');
+    image(temp1);
     colormap(colorset)
     set(gca,'XTick', [1:5]', 'XTickLabel', Label_letters(1:5));
     set(gca,'YTick', [1:5]', 'YTickLabel', Label_letters(1:5));
-    title(Titles(plot_order(k)));
+    title(Titles(plot_order(k)) + " (Acc: " + round(Avg_Accuracy(k),1) + "%)");
+        
     xlabel("Predicted Class" +newline+"  ");
     ylabel("  "+newline+"True Class");
     for i = 1:5
         for j = 1:5
-            if temp1(j,i)>mean(remap_range); text_color = [0 0 0];
-            else text_color = [1 1 1]; end
-            text(i,j,string(curr(j,i)),'HorizontalAlignment','center','Color',text_color);
+            if curr(j,i)~= 0
+                if temp1(j,i)>mean(remap_range); text_color = [0 0 0];
+                else text_color = [1 1 1]; end
+                text(i,j,string(curr(j,i)),'HorizontalAlignment','center','Color',text_color);
+            end
         end
     end
 %     set(h1,'Position',[h1_pos(1) - 0.02 h1_pos(2:end)]);

@@ -86,7 +86,7 @@ for k = 1:num_of_figs
         subplot(2,2,jj)
         confusion_mats(:,:,plot_order(j)) = confusionmat(test_data.Label,gPred(:,plot_order(j)));
         confusion_chart = confusionchart(test_data.Label,gPred(:,plot_order(j)));
-        confusion_chart.Title = Titles(plot_order(j)) + " (Accuracy = " + Avg_Accuracy(j) + "%)";
+        confusion_chart.Title = Titles(plot_order(j)) + " (Accuracy = " + round(Avg_Accuracy(j),2) + "%)";
         confusion_chart.RowSummary = 'row-normalized';
 %         confusion_chart.ColumnSummary = 'column-normalized';        
     end
