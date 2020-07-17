@@ -5,17 +5,18 @@
 % run C:\Users\godpo\Downloads\Software\eidors-v3.10\eidors\startup.m
 % run C:\Users\e0408045\Downloads\Software\eidors-v3.10\eidors\startup.m
 
-image_index = 0:5:h_min;
+% image_index = 0:5:h_min;
+image_index = 0:4:100;
 image_index(1) = 1;
-span = 500;
+span = 4;
 
 n_rings = 12;
 n_electrodes = 8;
 elec_pairs = 2:65;
 three_d_layers = []; % no 3D
-fmdl = mk_circ_tank( n_rings , three_d_layers, n_electrodes);
+fmdl = mk_circ_tank(n_rings , three_d_layers, n_electrodes);
 % then assign the fields in fmdl to imdl.fwd_model
-options = {'no_meas_current','no_rotate_meas'};
+options = {'meas_current','no_rotate_meas'};
 [stim, meas_select] = mk_stim_patterns(8,1,'{ad}','{ad}',options,1);
 imdl= mk_common_model('b2c2',n_electrodes);
 imdl.fwd_model.stimulation = stim;
